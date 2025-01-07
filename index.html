@@ -15,8 +15,12 @@
         const output=document.getElementById("output");
         function findlocation(){
             if(navigator.geolocation){
-
-                    navigator.geolocation.getCurrentPosition(getCords);
+                    const options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+      };
+                    navigator.geolocation.getCurrentPosition(getCords,err,options);
                 }
             else{
                 output.innerHTML+="geolocation is not supported";
