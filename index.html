@@ -19,8 +19,8 @@
         enableHighAccuracy: true,
         timeout: 5000,
         maximumAge: 0
-      };
-                    navigator.geolocation.getCurrentPosition(getCords,err,options);
+                    };
+                navigator.geolocation.getCurrentPosition(getCords,errorCallback,options);
                 }
             else{
                 output.innerHTML+="geolocation is not supported";
@@ -36,8 +36,21 @@
 
             output.innerHTML+="altitude: "+coords.coords.altitude+"<br>";
         }
-        function errorfunc(err){
-            output.innerHTML += "the error message is -" + err.message + "<br>";
+        function errorCallback(err) {
+  switch (err.code) {
+    case err.PERMISSION_DENIED:
+      output.innerHTML += "You have denied to access your device's location";
+      break;
+    case err.POSITION_UNAVAILABLE:
+      output.innerHTML += "Your position is not available.";
+      break;
+    case err.TIMEOUT:
+      output.innerHTML += "Request timed out while fetching your location.";
+      break;
+    case err.UNKNOWN_ERROR:
+      output.innerHTML += "Unknown error occurred while fetching your location.";
+      break;
+  }
         }
     </script>
 </body>
