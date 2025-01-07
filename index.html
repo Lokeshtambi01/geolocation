@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Location information</h2>
+    <button onclick="findlocation()">Find Location</button>
+    <div id="output">
+
+    </div>
+    <script>
+        const output=document.getElementById("output");
+        function findlocation(){
+            if(navigator.geolocation){
+                const options={
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 0};
+
+                    navigator.geolocation.getCurrentPosition(getCords,errorfunc,options);
+                }
+            else{
+                output.innerHTML+="geolocation is not supported";
+            }
+        }
+        function getCords(coords){
+            output.innerHTML+="the current location is: <br>";
+            output.innerHTML+="latitude: "+coords.coords.latitude+"<br>";
+
+            output.innerHTML+="longitude: "+coords.coords.longitude+"<br>";
+
+            output.innerHTML+="accuracy: "+coords.coords.accuracy+"<br>";
+
+            output.innerHTML+="altitude: "+coords.coords.altitude+"<br>";
+        }
+        function errorfunc(err){
+            output.innerHTML += "the error message is -" + err.message + "<br>";
+        }
+    </script>
+</body>
+</html>
